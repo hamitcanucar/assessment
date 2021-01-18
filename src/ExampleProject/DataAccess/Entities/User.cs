@@ -24,10 +24,11 @@ namespace ExampleProject.DataAccess.Entities
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Company { get; set;}
         public UserType UserType { get; set; }
 
         public UserInformation Information { get; set; }
-        public UserReport Report{ get; set; }
+        public Report Report{ get; set; }
     }
 
     public class UserEntityConfiguration : EntityConfiguration<User>

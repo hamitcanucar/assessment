@@ -15,8 +15,7 @@ namespace ExampleProject.Models.ControllerModels.UserControllerModels
             {
                 PersonalId = PersonalId,
                 Phone = Phone,
-                City = City,
-                Location = Location
+                City = City
             };
         }
     }

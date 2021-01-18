@@ -7,7 +7,6 @@ namespace ExampleProject.DataAccess.Entities
     public class UserInformation : AEntity
     {
         public string PersonalId { get; set; }
-        public string Location{get; set;}
         public string City { get; set; }
         public string Phone { get; set; }
         public Guid UserId { get; set; }

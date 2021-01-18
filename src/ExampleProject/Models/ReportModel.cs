@@ -3,17 +3,17 @@ using ExampleProject.DataAccess.Entities;
 
 namespace ExampleProject.Models
 {
-    public class UserReportModel : AEntityModel<UserReport, UserReportModel>
+    public class ReportModel : AEntityModel<Report, ReportModel>
     {
-        public UserReportModel()
+        public ReportModel()
         {
             ID = Guid.NewGuid();
         }
 
         public DateTime ReportCreateTime { get; set; }
-        public UserReportType UserReportType { get; set; }
+        public ReportType ReportType { get; set; }
 
-        public override void SetValuesFromEntity(UserReport entity)
+        public override void SetValuesFromEntity(Report entity)
         {
             if (entity == null) return;
 
@@ -21,26 +21,26 @@ namespace ExampleProject.Models
 
             ID = entity.ID;
             ReportCreateTime = entity.ReportCreateTime;
-            UserReportType = entity.UserReportType;
+            ReportType = entity.ReportType;
 
         }
 
-        public override UserReport ToEntity()
+        public override Report ToEntity()
         {
-            return new UserReport
+            return new Report
             {
                 ID = ID,
                 ReportCreateTime = ReportCreateTime,
-                UserReportType = UserReportType
+                ReportType = ReportType
             };
         }
     }
 
     public static class UserReportEntityExtentions
     {
-        public static UserReportModel ToModel(this UserReport userReport)
+        public static ReportModel ToModel(this Report userReport)
         {
-            var model = new UserReportModel();
+            var model = new ReportModel();
             model.SetValuesFromEntity(userReport);
             return model;
         }

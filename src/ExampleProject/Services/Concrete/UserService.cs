@@ -100,11 +100,10 @@ namespace ExampleProject.Services.Concrete
             return await query.AsNoTracking().ToListAsync();
         }
 
-        public async Task<ICollection<UserReport>> GetUserReports(Guid userId)
+        public async Task<ICollection<Report>> GetReports()
         {
-            var query = from u in _context.UserReports
-                        where u.UserId == userId
-                        select u;
+            var query = from r in _context.Reports
+                        select r;
 
             return await query.AsNoTracking().ToListAsync();
         }

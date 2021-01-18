@@ -17,7 +17,7 @@ namespace ExampleProject.Services.Abstract
         Task<ICollection<UserInformation>> GetUserInformations(Guid userId);
         Task<UserInformation> UserInformation(UserInformation userInformation, Guid id);
 
-        Task<ICollection<UserReport>> GetUserReports(Guid userId);
+        Task<ICollection<Report>> GetReports();
         Task<bool> UpdatePassword(User user, string password);
         Task<User> UpdatePassword(Guid id, string oldPassword, string newPassword);
         

@@ -11,7 +11,7 @@ namespace ExampleProject.Context
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<UserReport> UserReports { get; set; }
+        public DbSet<Report> Reports { get; set; }
         public DbSet<UserInformation> UserInformations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
