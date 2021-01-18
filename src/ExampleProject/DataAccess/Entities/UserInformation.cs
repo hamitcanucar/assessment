@@ -33,8 +33,8 @@ namespace ExampleProject.DataAccess.Entities
                     .HasColumnType("varchar(32)");
 
                 builder.HasOne<User>(uc => uc.User)
-                    .WithOne(u => u.Information)
-                    .HasForeignKey<UserInformation>(uc => uc.UserId);
+                    .WithMany(u => u.Information)
+                    .HasForeignKey(uc => uc.UserId);
 
                 builder.Property(uc => uc.UserId);
             }

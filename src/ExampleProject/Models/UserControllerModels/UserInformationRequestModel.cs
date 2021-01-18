@@ -5,7 +5,6 @@ namespace ExampleProject.Models.ControllerModels.UserControllerModels
     public class UserInformationRequestModel : AControllerEntityModel<UserInformation>
     {
         public string PersonalId { get; set; }
-        public string Location { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
 

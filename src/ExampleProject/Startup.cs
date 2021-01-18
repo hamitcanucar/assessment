@@ -72,8 +72,14 @@ namespace ExampleProject
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,  IServiceProvider serviceProvider)
         {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                var result = context.Database.EnsureCreated();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -82,6 +88,14 @@ namespace ExampleProject
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            var corsOrigins = Configuration.GetSection("Cors:Origins").Get<string[]>();
+            app.UseCors(o => {
+                o.WithOrigins(corsOrigins);
+                o.AllowAnyMethod();
+                o.AllowAnyHeader();
+                o.WithExposedHeaders("Count");
+            });
 
             app.UseAuthentication();
 

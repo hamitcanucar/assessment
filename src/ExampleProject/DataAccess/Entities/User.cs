@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ExampleProject.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -26,9 +27,7 @@ namespace ExampleProject.DataAccess.Entities
         public string LastName { get; set; }
         public string Company { get; set;}
         public UserType UserType { get; set; }
-
-        public UserInformation Information { get; set; }
-        public Report Report{ get; set; }
+        public ICollection<UserInformation> Information { get; set; }
     }
 
     public class UserEntityConfiguration : EntityConfiguration<User>
