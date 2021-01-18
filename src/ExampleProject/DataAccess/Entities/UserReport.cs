@@ -16,7 +16,7 @@ namespace ExampleProject.DataAccess.Entities
 
         public class UserInformationEntityConfiguration : EntityConfiguration<UserReport>
         {
-            public UserInformationEntityConfiguration() : base("user_information")
+            public UserInformationEntityConfiguration() : base("user_report")
             {
             }
 
@@ -28,7 +28,6 @@ namespace ExampleProject.DataAccess.Entities
                 .HasMethod("hash");
 
                 builder.Property(u => u.ReportCreateTime)
-                    .HasColumnName("phone")
                     .HasColumnType("varchar(32)");
 
                 builder.HasOne<User>(uc => uc.User)
