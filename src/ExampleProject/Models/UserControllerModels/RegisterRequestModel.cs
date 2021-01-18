@@ -15,6 +15,9 @@ namespace ExampleProject.Models.ControllerModels.UserControllerModels
         public string FirstName { get; set; }
 
         [MaxLength(64)]
+        public string Company { get; set; }
+
+        [MaxLength(64)]
         public string LastName { get; set; }
 
         public override User ToModel()
@@ -25,6 +28,7 @@ namespace ExampleProject.Models.ControllerModels.UserControllerModels
                 Password = Password,
                 FirstName = FirstName,
                 LastName = LastName,
+                Company = Company
             };
         }
     }

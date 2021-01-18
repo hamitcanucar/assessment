@@ -58,6 +58,9 @@ namespace ExampleProject.DataAccess.Entities
             builder.Property(u => u.LastName)
                 .HasColumnName("last_name")
                 .HasColumnType("varchar(64)");
+            builder.Property(u => u.Company)
+                .HasColumnName("company")
+                .HasColumnType("varchar(64)");
             
 
             builder.Property(u => u.UserType)
