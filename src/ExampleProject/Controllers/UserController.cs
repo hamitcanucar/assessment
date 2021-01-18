@@ -142,7 +142,7 @@ namespace ExampleProject.Controllers
         }
 
         [HttpDelete]
-        [Route("users/{id}")]
+        [Route("users/")]
         [Authorize]
         public async Task<GenericResponse<UserModel>> DeleteUser(string email)
         {
