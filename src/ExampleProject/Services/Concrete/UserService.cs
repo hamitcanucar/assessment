@@ -107,14 +107,29 @@ namespace ExampleProject.Services.Concrete
 
             return await query.AsNoTracking().ToListAsync();
         }
-        
-        public async Task<ICollection<UserInformation>> GetUserInformation(Guid userId)
+
+        public async Task<UserInformation> GetUserInformation(Guid userInformationId)
         {
             var query = from u in _context.UserInformations
-                        where u.UserId == userId
+                        where u.ID == userInformationId
                         select u;
 
-            return await query.AsNoTracking().ToListAsync();
+            return await query.AsNoTracking().FirstOrDefaultAsync();
+        }
+
+        public async Task<UserInformation> DeleteUserInformation(Guid userInformationId)
+        {
+            var entity = await GetUserInformation(userInformationId);
+            return await DeleteUserInformation(entity);
+        }
+
+        private async Task<UserInformation> DeleteUserInformation(UserInformation userInformation)
+        {
+            if (userInformation == null) return null;
+
+            _context.UserInformations.Remove(userInformation);
+            await _context.SaveChangesAsync();
+            return userInformation;
         }
 
         public async Task<User> Get(Guid id)
@@ -141,6 +156,21 @@ namespace ExampleProject.Services.Concrete
                         select u;
 
             return await query.AsNoTracking().ToListAsync();
+        }
+
+        public async Task<User> DeleteUser(string email)
+        {
+            var entity = await Get(email);
+            return await DeleteUser(entity);
+        }
+
+        private async Task<User> DeleteUser(User user)
+        {
+            if (user == null) return null;
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return user;
         }
 
         public async Task<User> Update(Guid id, UserModel model, string password = null)

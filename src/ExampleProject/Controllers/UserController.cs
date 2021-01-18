@@ -103,7 +103,7 @@ namespace ExampleProject.Controllers
         }
 
         [HttpGet]
-        [Route("getUserInformaation")]
+        [Route("getUserInformation")]
         [Authorize]
         public async Task<IEnumerable<UserInformationModel>> GetUserInformation()
         {
@@ -132,6 +132,7 @@ namespace ExampleProject.Controllers
         }
 
         [HttpGet]
+        [Route("getUserList")]
         [Authorize]
         public async Task<IEnumerable<UserModel>> GetUserList()
         {
@@ -140,6 +141,7 @@ namespace ExampleProject.Controllers
         }
 
         [HttpPatch]
+        [Route("updateUser")]
         [Authorize]
         public async Task<GenericResponse<UserModel>> UpdateUser([FromBody] UpdateUserRequestModel model)
         {

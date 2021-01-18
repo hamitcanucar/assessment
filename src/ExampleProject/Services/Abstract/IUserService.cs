@@ -13,9 +13,14 @@ namespace ExampleProject.Services.Abstract
         Task<User> Get(Guid id);
         Task<User> Get(string pidOrEmail);
         Task<ICollection<User>> Get();
+        Task<User> DeleteUser(string email);
         Task<User> Update(Guid id, UserModel user, string password = null);
-        Task<ICollection<UserInformation>> GetUserInformations(Guid userId);
+
+
         Task<UserInformation> UserInformation(UserInformation userInformation, Guid id);
+        Task<ICollection<UserInformation>> GetUserInformations(Guid userId);
+        Task<UserInformation> GetUserInformation(Guid userInformationId);
+        Task<UserInformation> DeleteUserInformation(Guid userInformationId);
 
         Task<ICollection<Report>> GetReports();
         Task<bool> UpdatePassword(User user, string password);

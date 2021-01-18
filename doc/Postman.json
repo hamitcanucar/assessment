@@ -164,7 +164,7 @@
         }
       }
     },
-    "/user/getUserInformaation": {
+    "/user/getUserInformation": {
       "get": {
         "tags": [
           "User"
@@ -242,7 +242,7 @@
         }
       }
     },
-    "/user": {
+    "/user/getUserList": {
       "get": {
         "tags": [
           "User"
@@ -278,7 +278,9 @@
             }
           }
         }
-      },
+      }
+    },
+    "/user/updateUser": {
       "patch": {
         "tags": [
           "User"
@@ -405,6 +407,11 @@
             "type": "string"
           },
           "firstName": {
+            "maxLength": 64,
+            "type": "string",
+            "nullable": true
+          },
+          "company": {
             "maxLength": 64,
             "type": "string",
             "nullable": true
