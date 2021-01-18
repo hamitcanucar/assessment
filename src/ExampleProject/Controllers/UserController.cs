@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ExampleProject.DataAccess.Entities;
 using ExampleProject.Models;
 using ExampleProject.Models.ControllerModels;
 using ExampleProject.Models.ControllerModels.UserControllerModels;
@@ -138,6 +139,33 @@ namespace ExampleProject.Controllers
         {
             var result = await _userService.Get();
             return result.Select(u => u.ToModel());
+        }
+
+        [HttpDelete]
+        [Route("users/{id}")]
+        [Authorize]
+        public async Task<GenericResponse<UserModel>> DeleteUser(string email)
+        {
+            User delResult;
+            
+            delResult = await _userService.DeleteUser(email);
+
+            if (delResult == null)
+            {
+                return new GenericResponse<UserModel>()
+                {
+                    Code = nameof(ErrorMessages.USER_NOT_FOUND),
+                    Message = ErrorMessages.USER_NOT_FOUND
+                };
+            }
+            else
+            {
+                return new GenericResponse<UserModel>
+                {
+                    Success = true,
+                    Data = delResult.ToModel()
+                };
+            }
         }
 
         [HttpPatch]
