@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ExampleProject.DataAccess.Entities;
 using ExampleProject.Models;
 using ExampleProject.Models.ControllerModels;
+using ExampleProject.Models.ControllerModels.ReportControllerModels;
 using ExampleProject.Models.ControllerModels.UserControllerModels;
 using ExampleProject.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
@@ -19,7 +20,7 @@ namespace ExampleProject.Controllers
     {
         private readonly IReportService _reportService;
 
-        public UserController(ILogger<UserController> logger, IReportService reportService) : base(logger)
+        public ReportController(ILogger<ReportController> logger, IReportService reportService) : base(logger)
         {
             _reportService = reportService;
         }
@@ -52,15 +53,15 @@ namespace ExampleProject.Controllers
         [Authorize]
         public async Task<ReportModel> GetReport(Guid id)
         {
-            var user = await _reportService.GetReport(id);
+            var report = await _reportService.GetReportFromId(id);
 
-            if (user == null)
+            if (report == null)
             {
                 return null;
             }
             else
             {
-                return user.ToModel();
+                return report.ToModel();
             }
         }
 
@@ -69,8 +70,8 @@ namespace ExampleProject.Controllers
         [Authorize]
         public async Task<IEnumerable<ReportModel>> GetreportList()
         {
-            var result = await _reportService.Get();
-            return result.Select(u => u.ToModel());
+            var result = await _reportService.GetReports();
+            return result.Select(r => r.ToModel());
         }
     }
 }

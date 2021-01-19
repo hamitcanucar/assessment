@@ -9,6 +9,7 @@ namespace ExampleProject.DataAccess.Entities
     {
         public DateTime ReportCreateTime { get; set; }
         public ReportType ReportType{ get; set; }
+        public string City { get; set; }
 
 
 

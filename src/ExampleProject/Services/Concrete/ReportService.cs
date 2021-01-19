@@ -31,20 +31,17 @@ namespace ExampleProject.Services.Concrete
         public async Task<Report> CreateReport(Report report)
         {
             //check unique columns
-            var result = await _context.Reports.AnyAsync(u => u.Id == user.Email);
+            var result = await _context.Reports.AnyAsync(u => u.ID == report.ID);
 
             if (result)
             {
                 return null;
             }
 
-            user.Password = user.Password.HashToSha256();
-            user.UserType = UserType.User;
-
-            _context.Add(user);
+            _context.Add(report);
             await _context.SaveChangesAsync();
 
-            return user;
+            return report;
         }
 
         public async Task<ICollection<Report>> GetReports()
