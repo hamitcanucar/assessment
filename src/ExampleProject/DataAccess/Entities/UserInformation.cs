@@ -7,8 +7,11 @@ namespace ExampleProject.DataAccess.Entities
     public class UserInformation : AEntity
     {
         public string PersonalId { get; set; }
-        public string City { get; set; }
+        public string Location { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Content { get; set; }
+
         public Guid UserId { get; set; }
         public User User { get; set; }
 
@@ -28,8 +31,17 @@ namespace ExampleProject.DataAccess.Entities
                     .HasColumnName("personal_id")
                     .HasColumnType("varchar(64)")
                     .IsRequired();
+                builder.Property(u => u.Location)
+                    .HasColumnName("location")
+                    .HasColumnType("varchar(32)");
                 builder.Property(u => u.Phone)
                     .HasColumnName("phone")
+                    .HasColumnType("varchar(32)");
+                builder.Property(u => u.Email)
+                    .HasColumnName("email")
+                    .HasColumnType("varchar(32)");
+                builder.Property(u => u.Content)
+                    .HasColumnName("content")
                     .HasColumnType("varchar(32)");
 
                 builder.HasOne<User>(uc => uc.User)

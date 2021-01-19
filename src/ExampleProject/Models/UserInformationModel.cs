@@ -11,8 +11,10 @@ namespace ExampleProject.Models
         }
 
         public string PersonalId { get; set; }
-        public string City { get; set; }
+        public string Location { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Content { get; set; }
 
         public override void SetValuesFromEntity(UserInformation entity)
         {
@@ -22,8 +24,10 @@ namespace ExampleProject.Models
 
             ID = entity.ID;
             PersonalId = entity.PersonalId;
-            City = entity.City;
+            Location = entity.Location;
             Phone = entity.Phone;
+            Email = entity.Email;
+            Content = entity.Content;
 
         }
 
@@ -33,8 +37,9 @@ namespace ExampleProject.Models
             {
                 ID = ID,
                 PersonalId = PersonalId,
-                City = City,
-                Phone = Phone
+                Location = Location,
+                Phone = Phone,
+                Content = Content
             };
         }
     }

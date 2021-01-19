@@ -5,8 +5,12 @@ namespace ExampleProject.Models.ControllerModels.UserControllerModels
     public class UserInformationRequestModel : AControllerEntityModel<UserInformation>
     {
         public string PersonalId { get; set; }
-        public string City { get; set; }
+        public string Location { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Content { get; set; }
+
+        
 
         public override UserInformation ToModel()
         {
@@ -14,7 +18,9 @@ namespace ExampleProject.Models.ControllerModels.UserControllerModels
             {
                 PersonalId = PersonalId,
                 Phone = Phone,
-                City = City
+                Location = Location,
+                Email = Email,
+                Content = Content
             };
         }
     }
