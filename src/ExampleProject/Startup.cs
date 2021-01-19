@@ -68,6 +68,7 @@ namespace ExampleProject
             });
 
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IReportService, ReportService>();
 
         }
 

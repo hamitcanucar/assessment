@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using ExampleProject.Services.Abstract;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using ExampleProject.Models.ControllerModels;
+using ExampleProject.Models.ReportControllerModels;
 
 namespace ExampleProject.Services.Concrete
 {
@@ -30,14 +32,7 @@ namespace ExampleProject.Services.Concrete
 
         public async Task<Report> CreateReport(Report report)
         {
-            //check unique columns
-            var result = await _context.Reports.AnyAsync(u => u.ID == report.ID);
-
-            if (result)
-            {
-                return null;
-            }
-
+            report.ReportType = ReportType.GettingReady;
             _context.Add(report);
             await _context.SaveChangesAsync();
 
@@ -52,6 +47,16 @@ namespace ExampleProject.Services.Concrete
             return await query.AsNoTracking().ToListAsync();
         }
 
+        // public async Task<ReportViewModel> GetReportDetailFromId(Guid id)
+        // {
+        //     var report = await _context.Reports.FirstOrDefaultAsync(q => q.ID == id);
+
+        //     var totalUser = await _context.UserInformations.Where(q => q.City == report.Location).ToList().Count();
+
+
+        // }
+
+
         public async Task<Report> Get(Guid id)
         {
             var query = from u in _context.Reports
@@ -61,10 +66,10 @@ namespace ExampleProject.Services.Concrete
             return await query.AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public async Task<Report> Get(string city)
+        public async Task<Report> Get(string location)
         {
             var query = from r in _context.Reports
-                        where r.City == city
+                        where r.Location == location
                         select r;
 
             return await query.AsNoTracking().FirstOrDefaultAsync();

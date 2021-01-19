@@ -9,7 +9,7 @@ namespace ExampleProject.DataAccess.Entities
     {
         public DateTime ReportCreateTime { get; set; }
         public ReportType ReportType{ get; set; }
-        public string City { get; set; }
+        public string Location { get; set; }
 
 
 
@@ -27,7 +27,12 @@ namespace ExampleProject.DataAccess.Entities
                 .HasMethod("hash");
 
                 builder.Property(u => u.ReportCreateTime)
+                    .HasColumnName("report_create_date")
                     .HasColumnType("varchar(32)");
+                
+                builder.Property(u => u.Location)
+                .HasColumnName("location")
+                .HasColumnType("varchar(64)");
             }
         }
     }

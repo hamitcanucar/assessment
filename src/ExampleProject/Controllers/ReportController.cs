@@ -27,6 +27,7 @@ namespace ExampleProject.Controllers
 
         [HttpPost]
         [Route("createReport")]
+        [Authorize]
         public async Task<GenericResponse<ReportModel>> CreateReport([FromBody] CreateReportRequestModel model)
         {
             var report = model.ToModel();

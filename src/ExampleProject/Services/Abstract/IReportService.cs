@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ExampleProject.Models;
 using ExampleProject.DataAccess.Entities;
+using ExampleProject.Models.ControllerModels;
+using ExampleProject.Models.ReportControllerModels;
 
 namespace ExampleProject.Services.Abstract
 {
@@ -10,6 +12,7 @@ namespace ExampleProject.Services.Abstract
     {
         Task<Report> CreateReport(Report report);
         Task<Report> GetReportFromId(Guid id);
+        // Task<ReportViewModel> GetReportDetailFromId(Guid id);
         Task<ICollection<Report>> GetReports();
     }
 }

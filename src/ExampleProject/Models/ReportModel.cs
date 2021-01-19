@@ -12,6 +12,7 @@ namespace ExampleProject.Models
 
         public DateTime ReportCreateTime { get; set; }
         public ReportType ReportType { get; set; }
+        public string Location { get; set; }
 
         public override void SetValuesFromEntity(Report entity)
         {
@@ -22,7 +23,7 @@ namespace ExampleProject.Models
             ID = entity.ID;
             ReportCreateTime = entity.ReportCreateTime;
             ReportType = entity.ReportType;
-
+            Location = entity.Location;
         }
 
         public override Report ToEntity()
@@ -31,7 +32,8 @@ namespace ExampleProject.Models
             {
                 ID = ID,
                 ReportCreateTime = ReportCreateTime,
-                ReportType = ReportType
+                ReportType = ReportType,
+                Location = Location
             };
         }
     }
