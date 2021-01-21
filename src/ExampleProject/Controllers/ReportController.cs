@@ -19,10 +19,11 @@ namespace ExampleProject.Controllers
     public class ReportController : AController<ReportController>
     {
         private readonly IReportService _reportService;
-
-        public ReportController(ILogger<ReportController> logger, IReportService reportService) : base(logger)
+        private readonly ProducerWrapper producer; 
+        public ReportController(ILogger<ReportController> logger, IReportService reportService, ProducerWrapper producer) : base(logger)
         {
             _reportService = reportService;
+            this.producer= producer;
         }
 
         [HttpPost]
@@ -69,10 +70,18 @@ namespace ExampleProject.Controllers
         [HttpGet]
         [Route("getReportList")]
         [Authorize]
-        public async Task<IEnumerable<ReportModel>> GetreportList()
+        public async Task<IEnumerable<ReportModel>> GetReportList()
         {
             var result = await _reportService.GetReports();
             return result.Select(r => r.ToModel());
+        }
+
+        [HttpPost]
+        [Route("approveReports")]
+        [Authorize]
+        public async Task<GenericResponse<bool>> ApproveReports(string[] guids)
+        {
+           return producer.PublishQueue(nameof(ApproveReports),guids);
         }
     }
 }

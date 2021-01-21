@@ -12,7 +12,8 @@ namespace ExampleProject.Services.Abstract
     {
         Task<Report> CreateReport(Report report);
         Task<Report> GetReportFromId(Guid id);
-        // Task<ReportViewModel> GetReportDetailFromId(Guid id);
+        Task<ReportViewModel> GetReportDetailFromId(Guid id);
         Task<ICollection<Report>> GetReports();
+        Task<IList<Report>> ApproveReports(string[] guids )
     }
 }

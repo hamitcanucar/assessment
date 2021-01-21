@@ -47,15 +47,27 @@ namespace ExampleProject.Services.Concrete
             return await query.AsNoTracking().ToListAsync();
         }
 
-        // public async Task<ReportViewModel> GetReportDetailFromId(Guid id)
-        // {
-        //     var report = await _context.Reports.FirstOrDefaultAsync(q => q.ID == id);
+        public async Task<ReportViewModel> GetReportDetailFromId(Guid id)
+        {
+            var report = _context.Reports.FirstOrDefaultAsync(q => q.ID == id).Result;
+            //Group User With UserId and Location Find Total User
+            var totalUser = from user in _context.UserInformations
+                            where user.Location == report.Location
+                            group user by new { user.Location ,user.UserId} into g
+                            select g.Count();
+            //Group User With Phone and Location Find Total User
+            var totalPhone = from user in _context.UserInformations
+                            where user.Location == report.Location
+                            group user by new { user.Location ,user.Phone} into g
+                           select g.Count();
 
-        //     var totalUser = await _context.UserInformations.Where(q => q.City == report.Location).ToList().Count();
-
-
-        // }
-
+            return new ReportViewModel
+            {
+                Locaiton= report.Location,
+                TotalUserCount= totalUser,
+                TotalPhoneCount= totalPhone,
+            };
+        }
 
         public async Task<Report> Get(Guid id)
         {
@@ -91,5 +103,16 @@ namespace ExampleProject.Services.Concrete
 
             return await query.AsNoTracking().ToListAsync();
         }
+
+        public async Task<IList<Report>> ApproveReports(string[] guids)
+        {
+            var reportList = _context.Reports.Where(x=>guids.Contains(x.Guid);
+
+            reportList.ForEach(x=>x.ReportType == ReportType.Complete);
+
+          _context.Reports.UpdateRange(reportList);
+          _context.SaveChangesAsync();  
+           return reportList;
+        } 
     }
 }
