@@ -106,7 +106,7 @@ namespace ExampleProject.Services.Concrete
 
         public async Task<IList<Report>> ApproveReports(string[] guids)
         {
-            var reportList = _context.Reports.Where(x=>guids.Contains(x.Guid);
+            var reportList = _context.Reports.Where(x=>guids.Contains(x.Guid));
 
             reportList.ForEach(x=>x.ReportType == ReportType.Complete);
 
