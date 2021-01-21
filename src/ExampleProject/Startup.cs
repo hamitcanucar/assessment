@@ -87,7 +87,7 @@ namespace ExampleProject
             }
 
             app.UseHttpsRedirection();
-
+         app.UseStaticFiles();
             app.UseRouting();
 
             var corsOrigins = Configuration.GetSection("Cors:Origins").Get<string[]>();

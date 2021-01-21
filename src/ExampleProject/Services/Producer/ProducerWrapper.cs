@@ -1,11 +1,16 @@
+using System.Text;
+using ExampleProject.Models.ControllerModels;
+using RabbitMQ.Client;
+
 namespace ExampleProject
 {
     public class ProducerWrapper
     {
-        public GenericResponse<bool> PublishQueue(string methodName,string[] reportGuids)
+        public GenericResponse<bool> PublishQueue(string methodName, string[] reportGuids)
         {
             GenericResponse<bool> response = new GenericResponse<bool>();
             var factory = new ConnectionFactory() { HostName = "localhost", };
+            
             //Create Connection 
             using (var connection = factory.CreateConnection())
             //Create Channel
@@ -13,15 +18,16 @@ namespace ExampleProject
             {
                 try
                 {
-                 channel.QueueDeclare(methodName, false, false, false, null);
-                channel.BasicPublish("", methodName, null, reportGuids.ToString);
-                   response.Success= true;
-                   response.Message=$"{MethodName} successfully add queue";
-                } 
+                    channel.QueueDeclare(methodName, false, false, false, null);
+                      var body = Encoding.UTF8.GetBytes(reportGuids.ToString());  
+                    channel.BasicPublish("Report Queue", methodName, null,body);
+                    response.Success = true;
+                    response.Message = $"{methodName} successfully add queue";
+                }
                 catch (System.Exception ex)
                 {
-                     response.Success= true;
-                   response.Message=$"{MethodName} can't add queue. Ex: {ex.Message}";
+                    response.Success = true;
+                    response.Message = $"{methodName} can't add queue. Ex: {ex.Message}";
                 }
 
             }

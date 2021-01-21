@@ -81,7 +81,8 @@ namespace ExampleProject.Controllers
         [Authorize]
         public async Task<GenericResponse<bool>> ApproveReports(string[] guids)
         {
-           return producer.PublishQueue(nameof(ApproveReports),guids);
+           var result = producer.PublishQueue(nameof(ApproveReports),guids);
+           return result;
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using ExampleProject.Services.Abstract;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ExampleProject.Services.Concrete
 {
@@ -27,7 +28,7 @@ namespace ExampleProject.Services.Concrete
             _context = context;
             _configuration = configuration;
         }
-
+    [HttpPost]
         public async Task<UserModel> Login(string email, string password)
         {
             var hashedPass = password.HashToSha256();
@@ -62,7 +63,7 @@ namespace ExampleProject.Services.Concrete
 
             return result;
         }
-
+ [HttpPost]
         public async Task<User> Register(User user)
         {
             //check unique columns
@@ -81,7 +82,7 @@ namespace ExampleProject.Services.Concrete
 
             return user;
         }
-
+ [HttpPost]
         public async Task<UserInformation> UserInformation(UserInformation userInformation, Guid id)
         {
             userInformation.UserId = id;
@@ -117,12 +118,13 @@ namespace ExampleProject.Services.Concrete
             return await query.AsNoTracking().FirstOrDefaultAsync();
         }
 
+        [HttpPost]
         public async Task<UserInformation> DeleteUserInformation(Guid userInformationId)
         {
             var entity = await GetUserInformation(userInformationId);
             return await DeleteUserInformation(entity);
         }
-
+[HttpPost]
         private async Task<UserInformation> DeleteUserInformation(UserInformation userInformation)
         {
             if (userInformation == null) return null;
@@ -157,7 +159,8 @@ namespace ExampleProject.Services.Concrete
 
             return await query.AsNoTracking().ToListAsync();
         }
-
+        
+        [HttpDelete]
         public async Task<User> DeleteUser(string email)
         {
             var entity = await Get(email);
@@ -173,6 +176,7 @@ namespace ExampleProject.Services.Concrete
             return user;
         }
 
+        [HttpPatch]
         public async Task<User> Update(Guid id, UserModel model, string password = null)
         {
             var result = await _context.Users.Where(u => Guid.Equals(u.ID, id)).FirstOrDefaultAsync();
@@ -187,6 +191,7 @@ namespace ExampleProject.Services.Concrete
             return result;
         }
 
+        [HttpPost]
         private async Task<User> SetUpdateValues(User user, UserModel model, string password = null)
         {
             if (!String.IsNullOrEmpty(model.Email))
@@ -217,6 +222,7 @@ namespace ExampleProject.Services.Concrete
             return user;
         }
 
+        [HttpPatch]
         public async Task<bool> UpdatePassword(User user, string password)
         {
             _context.Users.Attach(user);
@@ -225,6 +231,7 @@ namespace ExampleProject.Services.Concrete
             return result > 0;
         }
 
+        [HttpPatch]
         public async Task<User> UpdatePassword(Guid id, string oldPassword, string newPassword)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.ID == id);
