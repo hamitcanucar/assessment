@@ -69,6 +69,8 @@ namespace ExampleProject
 
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddScoped<ProducerWrapper>();
+            services.AddScoped<ConsumerWrapper>();
 
         }
 
