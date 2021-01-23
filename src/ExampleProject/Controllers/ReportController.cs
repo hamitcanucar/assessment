@@ -7,6 +7,7 @@ using ExampleProject.Models;
 using ExampleProject.Models.ControllerModels;
 using ExampleProject.Models.ControllerModels.ReportControllerModels;
 using ExampleProject.Models.ControllerModels.UserControllerModels;
+using ExampleProject.Models.ReportControllerModels;
 using ExampleProject.Services.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -74,6 +75,21 @@ namespace ExampleProject.Controllers
         {
             var result = await _reportService.GetReports();
             return result.Select(r => r.ToModel());
+        }
+
+        [HttpGet]
+        [Route("getReportDetail")]
+        [Authorize]
+        public async Task<ReportViewModel> GetReportDetailFromId(Guid id)
+        {
+            var result = await _reportService.GetReportDetailFromId(id);
+
+            if (result == null)
+            {
+                return null;
+            }
+            else
+                return result;
         }
 
         [HttpPost]
