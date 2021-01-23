@@ -51,7 +51,7 @@ namespace ExampleProject.Services.Concrete
                             group user by new { user.Location, user.PersonalId } into g
                             select g.Count();
 
-            //Group User With Phone and Location Find Total User
+            //Group User With Phone and Location Find Total Phone number
             var totalPhone = from user in _context.UserInformations
                              where user.Location == report.Location
                              group user by new { user.Location, user.Phone } into g
